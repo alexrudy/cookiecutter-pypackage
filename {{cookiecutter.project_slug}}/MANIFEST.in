@@ -6,6 +6,17 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 
+graft src/{{ cookiecutter.project_slug }}/templates
+graft src/{{ cookiecutter.project_slug }}/static
+graft src/{{ cookiecutter.project_slug }}/data
+graft src/{{ cookiecutter.project_slug }}/assets
+
+recursive-include src/{{ cookiecutter.project_slug }}/ templates/*.html
+recursive-include src/{{ cookiecutter.project_slug }}/ templates/**/*.html
+recursive-include src/{{ cookiecutter.project_slug }}/ data/*
+recursive-include src/{{ cookiecutter.project_slug }}/ *.py
+recursive-include src/{{ cookiecutter.project_slug }}/ *.cfg
+
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]

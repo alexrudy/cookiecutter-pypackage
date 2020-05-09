@@ -1,0 +1,13 @@
+pip
+pip-tools
+bump2version
+wheel
+flake8
+tox
+coverage
+Sphinx
+twine
+Click
+pytest
+pytest-cov
+invoke

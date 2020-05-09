@@ -10,11 +10,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %} ]
+requirements = []
 
-setup_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner',{%- endif %} ]
+setup_requirements = ['pytest-runner']
 
-test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} ]
+test_requirements = ['pytest>=3', 'pytest-cov']
 
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
@@ -42,13 +42,6 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     description="{{ cookiecutter.project_short_description }}",
-    {%- if 'no' not in cookiecutter.command_line_interface|lower %}
-    entry_points={
-        'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',
-        ],
-    },
-    {%- endif %}
     install_requires=requirements,
 {%- if cookiecutter.open_source_license in license_classifiers %}
     license="{{ cookiecutter.open_source_license }}",
@@ -57,7 +50,8 @@ setup(
     include_package_data=True,
     keywords='{{ cookiecutter.project_slug }}',
     name='{{ cookiecutter.project_slug }}',
-    packages=find_packages(include=['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']),
+    packages=find_packages("src", include=['src/{{ cookiecutter.project_slug }}', 'src/{{ cookiecutter.project_slug }}.*']),
+    package_dir={"": "src"},
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
